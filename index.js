@@ -6,6 +6,7 @@ server.listen(3002, () => {
   console.log("SERVER RUNNING");
 });
 const apiUrl = process.env.API_URL;
+const time = process.env.TIME;
 
 const callApi = async () => {
   try {
@@ -16,7 +17,7 @@ const callApi = async () => {
   }
 };
 
-const intervalId = setInterval(callApi, 10 * 60 * 1000);
+const intervalId = setInterval(callApi, Number(time) * 60 * 1000);
 
 // setTimeout(() => {
 //   clearInterval(intervalId);
