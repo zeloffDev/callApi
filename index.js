@@ -10,7 +10,7 @@ server.listen(3002, () => {
 const apiUrl = process.env.API_URL;
 const testApi = process.env.TEST_API_URL;
 const time = process.env.TIME;
-const day = process.env.DAY;
+// const day = process.env.DAY;
 
 app.use("/", (req, res) => {
   res.status(200).json("Test Request");
@@ -29,6 +29,6 @@ const callApi = async () => {
 
 const intervalId = setInterval(callApi, Number(time) * 60 * 1000);
 
-setTimeout(() => {
-  clearInterval(intervalId);
-}, Number(day) * 24 * 60 * 60 * 1000);
+// setTimeout(() => {
+//   clearInterval(intervalId);
+// }, Number(day) * 24 * 60 * 60 * 1000);
