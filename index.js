@@ -13,6 +13,7 @@ const time = process.env.TIME;
 // const day = process.env.DAY;
 
 app.use("/", (req, res) => {
+  console.log("Test Request");
   res.status(200).json("Test Request");
 });
 
