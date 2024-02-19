@@ -2,34 +2,39 @@ const axios = require("axios");
 const express = require("express");
 const app = express();
 const http = require("http");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 const server = http.createServer(app);
 server.listen(3002, () => {
   console.log("SERVER RUNNING");
 });
-const apiUrl = process.env.API_URL;
-const testApi = process.env.TEST_API_URL;
-const time = process.env.TIME;
-// const day = process.env.DAY;
 
-app.use("/", (req, res) => {
-  console.log("Test Request");
-  res.status(200).json("Test Request");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.post("/GetKmInDay", async (req, res) => {
+  try {
+    const response = await callApi(req.body);
+    res.status(200).json(response.data);
+  } catch (error) {
+    res.status(500).json("Error");
+  }
 });
 
-const callApi = async () => {
+const callApi = async (body) => {
   try {
-    const response = await axios.get(apiUrl);
-    const testRequest = await axios.get(testApi);
-
-    console.log("API Response:", response.data, testRequest.data);
+    const response = await axios.post(
+      "https://data.dvbk.vn/api/QLVT/GetKmInDay",
+      body,
+      {
+        headers: {
+          Authorization: "Basic dHRzb25saW5lOnFsdnR0b2l1dQ==",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response;
   } catch (error) {
     console.error("API Error:", error.message);
   }
 };
-
-const intervalId = setInterval(callApi, Number(time) * 60 * 1000);
-
-// setTimeout(() => {
-//   clearInterval(intervalId);
-// }, Number(day) * 24 * 60 * 60 * 1000);
