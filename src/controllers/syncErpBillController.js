@@ -19,8 +19,10 @@ const syncErpBillController = {
           await syncErpBillRepository.updateDoCodeFromNteBill(newBody);
         if (responseUpdateDoCode.affectedRows > 0) {
           await syncErpBillService.pushBillERP(newBody);
+          res.status(200).json("Cập nhật thành công");
+        } else {
+          res.status(500).json("Cập nhật thất bại");
         }
-        res.status(200).json("Cập nhật thành công");
       } else {
         res.status(500).json("Không tìm thấy doCode");
       }

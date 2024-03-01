@@ -1,6 +1,8 @@
 const axios = require("axios");
 const md5 = require("md5");
-const { syncErpBill } = require("../configs/default");
+const {
+  service: { syncErpBill },
+} = require("../constant");
 
 const syncErpBillService = {
   infoBill: async (body) => {
